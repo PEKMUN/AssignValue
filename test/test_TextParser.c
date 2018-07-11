@@ -1,9 +1,12 @@
-#include "unity.h"
-#include "CException.h"
-#include "TextParser.h"
 #include <stdio.h>
+#include <malloc.h>
+#include <stdarg.h>
+#include <ctype.h>
+#include "unity.h"
 #include "Error.h"
+#include "TextParser.h"
 #include "Exception.h"
+#include "CException.h"
 
 
 void setUp(void) {}
@@ -65,7 +68,7 @@ void test_parseAndCompare_given_spaced_assign_and_assign_with_spaced_and_extra_t
   TEST_ASSERT_EQUAL_PTR (originalLine + 9, line);
 }
 
-void test_parseAndConvertToNum_given_string_213_expect_return_number_518 (void){
+/*void test_parseAndConvertToNum_given_string_213_expect_return_number_518 (void){
   char *line = "518";
   char *originalLine = line;
 
@@ -94,7 +97,7 @@ void test_parseAndConvertToNum_given_leading_and_traiing_space_string_978_expect
 }
 
 
-/*void test_verifyNumOnlyString_given_423_expect_true () {
+void xtest_verifyNumOnlyString_given_423_expect_true () {
   char *line = "423";
   char *originalLine = line;
 
@@ -102,7 +105,7 @@ void test_parseAndConvertToNum_given_leading_and_traiing_space_string_978_expect
   TEST_ASSERT_EQUAL_PTR (originalLine, line);
 }
 
-void test_verifyNumOnlyString_given_2l0_expect_false () {
+void xtest_verifyNumOnlyString_given_2l0_expect_false () {
   CEXCEPTION_T e;
   char *line = "2l0";
   char *originalLine = line;
@@ -116,7 +119,7 @@ void test_verifyNumOnlyString_given_2l0_expect_false () {
     freeError(e);
   }
 
-}*/
+}
 
 
 void test_TextParser_given_orange_21346_apple_1_lemon_10_should_assign_correctly(void)
@@ -286,4 +289,4 @@ void test_parseTextAndAssignValues_given_malform_ciku_without_number_should_thro
     TEST_ASSERT_EQUAL(ERR_NOT_A_NUMBER, e->errorCode);
     freeError(e);
   }
-}
+}*/
