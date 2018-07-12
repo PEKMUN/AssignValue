@@ -67,7 +67,7 @@ void test_parseAndCompare_given_spaced_assign_and_assign_with_spaced_and_extra_t
   TEST_ASSERT_EQUAL_PTR (originalLine + 9, line);
 }
 
-void test_parseAndConvertToNum_given_string_213_expect_return_number_518 (void){
+void test_parseAndConvertToNum_given_string_518_expect_return_number_518 (void){
   char *line = "518";
   char *originalLine = line;
 
@@ -77,7 +77,7 @@ void test_parseAndConvertToNum_given_string_213_expect_return_number_518 (void){
   TEST_ASSERT_EQUAL_PTR (originalLine + 3, line);
 }
 
-void test_parseAndConvertToNum_given_string_456_with_trailing_space_expect_return_number_402 (void){
+void test_parseAndConvertToNum_given_string_402_with_trailing_space_expect_return_number_402 (void){
   char *line = "402 ";
   char *originalLine = line;
 
@@ -86,7 +86,7 @@ void test_parseAndConvertToNum_given_string_456_with_trailing_space_expect_retur
   TEST_ASSERT_EQUAL_PTR (originalLine + 4, line);
 }
 
-void test_parseAndConvertToNum_given_leading_and_traiing_space_string_978_expect_return_number_567 (void){
+void test_parseAndConvertToNum_given_leading_and_traiing_space_string_567_expect_return_number_567 (void){
   char *line = " 567   ";
   char *originalLine = line;
 

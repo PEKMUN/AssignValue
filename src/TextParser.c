@@ -5,20 +5,31 @@
 
 int parseAndCompare(char **linePtr, char *cmpStr)
 {
-	char addOne = 0;
-	while(**linePtr != '\0' || *cmpStr != '\0')
+	int addOne = 0;
+	while((**linePtr) != '\0' || (*cmpStr) != '\0')
 	{
-		if(isspace(**linePtr))
-		{
-			(*linePtr)++;
-			addOne++;
-		}
+    if((**linePtr) == ' ' && (*cmpStr) == '\0')
+    {
+      while(isspace(**linePtr))
+      {
+        (*linePtr)++;
+        addOne++;
+      }
+      return 1;
+    }
 		
 		else if(isspace(*cmpStr))
 		{
 			cmpStr++;
+      addOne++;
 		}
-		
+    
+		else if(isspace(**linePtr))
+		{
+			(*linePtr)++;
+			addOne++;
+		}
+    
 		else if(tolower(**linePtr) != tolower(*cmpStr))
 		{
 			(*linePtr) -= addOne;
@@ -31,37 +42,8 @@ int parseAndCompare(char **linePtr, char *cmpStr)
 			addOne++;
 			(*linePtr)++;
 		}
-    }  
+  }  
 	return 1;
-}
-
-int getStringLength(char **linePtr)
-{
-	int i=0;
-	
-	if ((*linePtr)== NULL || (**linePtr)=='\0')
-	{
-		return 0;
-	}
-	
-	else
-	{
-		while((**linePtr) != ' ' && (**linePtr) != '=')
-		{
-			if((**linePtr) == '\0'){
-				(*linePtr) -= i;
-				return i;
-			}
-			else 
-			{	
-				i++;
-				(*linePtr)++;
-			}
-		}
-		(*linePtr) -= i;
-		return i;
-		
-	}
 }
 
 void skipSpaces(char **line)
@@ -78,32 +60,52 @@ int parseAndConvertToNum(char **linePtr)
 
 	while((**linePtr) != '\0')
   {
-	if(isspace(**linePtr))
+    if(isdigit(**linePtr))
+    {
+      sum = (**linePtr) - 48 + sum * 10;
+      (*linePtr)++;
+      while ((**linePtr) == ' ')
+      {
+        skipSpaces(linePtr);
+        return sum;  
+      }
+    }
+    
+    else 
+      skipSpaces(linePtr);
+  }
+  return sum;
+}
+
+int getStringLength(char **linePtr)
+{
+	int i=0;
+	
+	if ((*linePtr)== NULL || (**linePtr)=='\0')
 	{
-		(*linePtr)++;
+		return 0;
 	}
 	
 	else
 	{
-		sum = (**linePtr) - 48 + sum * 10;
-		(*linePtr)++;  
-	}		
-  }
-  return sum;
+		while((**linePtr) == '\0')
+		{
+      i++;
+    }
+	}
 }
 
 int stringContains(char **linePtr, char *cmpStr)
 {
   int i;
-  int strlgth = getStringLength(linePtr) + 1;
   char *temp, *strptr;
-  temp = malloc(strlgth);
+  temp = malloc(256);
+  skipSpaces(linePtr);
+  strptr = (*linePtr);
   
-  strptr = *linePtr;
-  
-  for(i=0;i<10;i++)
+  for(i=0;(*strptr) != ' ';i++)
   {
-    temp[i] = (*strptr);
+    temp[i] = *strptr;
     strptr++;
   }
   
@@ -122,18 +124,23 @@ int parseTextAndAssignValues(char **line, VariableMapping *varTableMapping)
 {
   if(stringContains(line, "assign"))
   {
-	while(varTableMapping->name != NULL)
-	{
-		if(parseAndCompare(line, varTableMapping->name))
-		{
-			if(stringContains(line, "="))
-			{
-				if(isdigit(**line))
-				{
-					*varTableMapping->storage = parseAndConvertToNum(line);
-				}
-			}
-		}
-	}
+    while(varTableMapping->name != NULL)
+    {
+      if(parseAndCompare(line, varTableMapping->name))
+      {
+        if(stringContains(line, "="))
+        {
+          if(isdigit(**line))
+          {
+            *varTableMapping->storage = parseAndConvertToNum(line);
+            //varTableMapping = varTableMapping[0];
+          }
+        }
+      }
+      else
+      {
+        varTableMapping++;
+      }
+    }
   }
 }
