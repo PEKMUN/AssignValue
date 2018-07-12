@@ -7,6 +7,11 @@ struct VariableMapping {
   int *storage;
 };
 
-int parseTextAndAssignValues(char *line, VariableMapping *varTableMapping);
+int parseAndCompare(char **linePtr, char *cmpStr);
+int getStringLength(char **linePtr);
+int parseAndConvertToNum(char **linePtr);
+int stringContains(char **linePtr, char *cmpStr);
+void skipSpaces(char **line);
+int parseTextAndAssignValues(char **line, VariableMapping *varTableMapping);
 
 #endif // _TEXTPARSER_H

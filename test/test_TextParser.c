@@ -8,7 +8,6 @@
 #include "Exception.h"
 #include "CException.h"
 
-
 void setUp(void) {}
 
 void tearDown(void) {}
@@ -68,7 +67,7 @@ void test_parseAndCompare_given_spaced_assign_and_assign_with_spaced_and_extra_t
   TEST_ASSERT_EQUAL_PTR (originalLine + 9, line);
 }
 
-/*void test_parseAndConvertToNum_given_string_213_expect_return_number_518 (void){
+void test_parseAndConvertToNum_given_string_213_expect_return_number_518 (void){
   char *line = "518";
   char *originalLine = line;
 
@@ -96,8 +95,34 @@ void test_parseAndConvertToNum_given_leading_and_traiing_space_string_978_expect
   TEST_ASSERT_EQUAL_PTR (originalLine + 7, line);
 }
 
+void test_skipSpaces_given_two_spaces_expect_line_to_move_ahead_by_two(void)
+{
+	char *line = "  ";
+	char *originalLine = line;
+	
+	skipSpaces(&line);
+	TEST_ASSERT_EQUAL(originalLine + 2, line);
+}
 
-void xtest_verifyNumOnlyString_given_423_expect_true () {
+void test_skipSpaces_given_three_spaces_and_a_expect_line_to_move_ahead_by_three(void)
+{
+	char *line = "   a";
+	char *originalLine = line;
+	
+	skipSpaces(&line);
+	TEST_ASSERT_EQUAL(originalLine + 3, line);
+}
+
+void test_skipSpaces_given_a_and_two_space_expect_line_dont_move(void)
+{
+	char *line = "a  ";
+	char *originalLine = line;
+	
+	skipSpaces(&line);
+	TEST_ASSERT_EQUAL(originalLine, line);
+}
+
+/*void xtest_verifyNumOnlyString_given_423_expect_true () {
   char *line = "423";
   char *originalLine = line;
 
@@ -119,7 +144,7 @@ void xtest_verifyNumOnlyString_given_2l0_expect_false () {
     freeError(e);
   }
 
-}
+}*/
 
 
 void test_TextParser_given_orange_21346_apple_1_lemon_10_should_assign_correctly(void)
@@ -145,7 +170,7 @@ void test_TextParser_given_orange_21346_apple_1_lemon_10_should_assign_correctly
   }
 }
 
-void test_parseTextAndAssignValues_given_text_without_assign_should_throw_ERR_UNKNOWN_COMMAND(void) {
+/*void test_parseTextAndAssignValues_given_text_without_assign_should_throw_ERR_UNKNOWN_COMMAND(void) {
   CEXCEPTION_T e;
   int papaya = 0;
   VariableMapping varTableMapping[] = {

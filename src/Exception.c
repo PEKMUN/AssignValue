@@ -32,6 +32,6 @@ void freeError(Exception *ex) {
   if(ex){
     if (ex->errorMsg)
       free(ex->errorMsg);
-    free(ex);
+   free(ex);
   }
 }
