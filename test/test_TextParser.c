@@ -122,30 +122,50 @@ void test_skipSpaces_given_a_and_two_space_expect_line_dont_move(void)
 	TEST_ASSERT_EQUAL(originalLine, line);
 }
 
-/*void xtest_verifyNumOnlyString_given_423_expect_true () {
-  char *line = "423";
-  char *originalLine = line;
-
-  TEST_ASSERT_TRUE (verifyNumOnlyString(&line));
-  TEST_ASSERT_EQUAL_PTR (originalLine, line);
+void test_getStringLength_given_a_NULL_expect_0(void)
+{	
+  char *line = "";
+	char *originalLine = line;
+	
+	getStringLength(&line);
+  TEST_ASSERT_EQUAL(originalLine, line);
 }
 
-void xtest_verifyNumOnlyString_given_2l0_expect_false () {
-  CEXCEPTION_T e;
-  char *line = "2l0";
+void test_getStringLength_given_empty_string_expect_0(void)
+{	
+  char *line = " ";
+	char *originalLine = line;
+	
+	getStringLength(&line);
+  TEST_ASSERT_EQUAL(originalLine, line);
+}
+
+void test_getStringLength_given_a_f_string_expect_1(void)
+{	
+  char *line = "f";
+	char *originalLine = line;
+	
+	getStringLength(&line);
+  TEST_ASSERT_EQUAL(originalLine, line);
+}
+
+void test_getStringLength_given_mumbo_jumbo_string_expect_11(void)
+{	
+  char *line = "orange";
+	char *originalLine = line;
+	
+	getStringLength(&line);
+  TEST_ASSERT_EQUAL(originalLine, line);
+}
+
+void test_stringContains_given_assign_orange_18_should_return_true(void)
+{
+  char *line ="assign orange = 18";
   char *originalLine = line;
 
-  Try{
-    verifyNumOnlyString(&line);
-    TEST_FAIL_MESSAGE("Expect ERR_NOT_A_NUMBER. But no exception thrown.");
-  } Catch(e) {
-    printf(e->errorMsg);
-    TEST_ASSERT_EQUAL(ERR_NOT_A_NUMBER, e->errorCode);
-    freeError(e);
-  }
-
-}*/
-
+  TEST_ASSERT_TRUE (stringContains(&line,"assign"));
+  TEST_ASSERT_EQUAL_PTR (originalLine + 7, line);
+}
 
 void test_TextParser_given_orange_21346_apple_1_lemon_10_should_assign_correctly(void)
 {
