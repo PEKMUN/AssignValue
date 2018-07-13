@@ -18,10 +18,25 @@ int parseAndCompare(char **linePtr, char *cmpStr)
       return 1;
     }
 		
+    else if((**linePtr) == '=' && (*cmpStr) == '=')
+    {
+      (*linePtr)++;
+      return 1;
+    }
+    
+    else if(isdigit(**linePtr) && isdigit(*cmpStr))
+    {
+      return 1;
+    }
+    
+    else if((**linePtr) == '=' && (*cmpStr) == '\0')
+    {
+      return 1;
+    }
+    
 		else if(isspace(*cmpStr))
 		{
 			cmpStr++;
-      addOne++;
 		}
     
 		else if(isspace(**linePtr))
@@ -105,8 +120,16 @@ int stringContains(char **linePtr, char *cmpStr)
   
   for(i=0;(*strptr) != ' ';i++)
   {
-    temp[i] = *strptr;
-    strptr++;
+    if(isdigit(*strptr))
+    {
+      break;
+    }
+    
+    else
+    {
+      temp[i] = *strptr;
+      strptr++;
+    }
   }
   
   temp[i] = '\0';
@@ -122,7 +145,20 @@ int stringContains(char **linePtr, char *cmpStr)
 
 int parseTextAndAssignValues(char **line, VariableMapping *varTableMapping) 
 {
-  if(stringContains(line, "assign"))
+  char *origin;
+  origin = varTableMapping;
+  
+  if(*line == NULL)
+  {
+    return 0;
+  }
+  
+  else if(varTableMapping == NULL)
+  {
+    throwSimpleError(5, "ERR_TABLE_IS_MISSING");
+  }
+    
+  else if(parseAndCompare(line, "assign"))
   {
     while(varTableMapping->name != NULL)
     {
@@ -133,8 +169,16 @@ int parseTextAndAssignValues(char **line, VariableMapping *varTableMapping)
           if(isdigit(**line))
           {
             *varTableMapping->storage = parseAndConvertToNum(line);
-            //varTableMapping = varTableMapping[0];
+            varTableMapping = origin;
           }
+          else
+          {
+            throwSimpleError(1, "ERR_NOT_A_NUMBER");
+          }
+        }
+        else
+        {
+          throwSimpleError(4, "ERR_MALFORM_ASSIGN");
         }
       }
       else
@@ -142,5 +186,10 @@ int parseTextAndAssignValues(char **line, VariableMapping *varTableMapping)
         varTableMapping++;
       }
     }
+    throwSimpleError(2, "ERR_UNKNOWN_VARIABLE");
+  }
+  else
+  {
+    throwSimpleError(3, "ERR_UNKNOWN_COMMAND");
   }
 }

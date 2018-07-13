@@ -170,7 +170,7 @@ void test_TextParser_given_orange_21346_apple_1_lemon_10_should_assign_correctly
   }
 }
 
-/*void test_parseTextAndAssignValues_given_text_without_assign_should_throw_ERR_UNKNOWN_COMMAND(void) {
+void test_parseTextAndAssignValues_given_text_without_assign_should_throw_ERR_UNKNOWN_COMMAND(void) {
   CEXCEPTION_T e;
   int papaya = 0;
   VariableMapping varTableMapping[] = {
@@ -314,4 +314,4 @@ void test_parseTextAndAssignValues_given_malform_ciku_without_number_should_thro
     TEST_ASSERT_EQUAL(ERR_NOT_A_NUMBER, e->errorCode);
     freeError(e);
   }
-}*/
+}
