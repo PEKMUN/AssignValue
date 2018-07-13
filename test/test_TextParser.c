@@ -167,6 +167,24 @@ void test_stringContains_given_assign_orange_18_should_return_true(void)
   TEST_ASSERT_EQUAL_PTR (originalLine + 7, line);
 }
 
+void test_stringContains_given_assign_apple_402_should_return_true(void)
+{
+  char *line ="   assign apple = 402";
+  char *originalLine = line;
+
+  TEST_ASSERT_TRUE (stringContains(&line,"assign"));
+  TEST_ASSERT_EQUAL_PTR (originalLine + 10, line);
+}
+
+void test_stringContains_given_assign_mango_1222_should_return_true(void)
+{
+  char *line ="  assign    mango = 1222";
+  char *originalLine = line;
+
+  TEST_ASSERT_TRUE (stringContains(&line,"assign"));
+  TEST_ASSERT_EQUAL_PTR (originalLine + 12, line);
+}
+
 void test_TextParser_given_orange_21346_apple_1_lemon_10_should_assign_correctly(void)
 {
   CEXCEPTION_T e;
